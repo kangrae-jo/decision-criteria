@@ -17,6 +17,7 @@
 - [추상 클래스와 인터페이스 선택](criteria/abstract-class-vs-interface.md)
 - [테스트 전략과 계층별 책임](criteria/testing-strategy.md)
 - [SQL과 Service 로직의 구분](criteria/sql-vs-service-logic.md)
+- [검증 책임과 DB 제약](criteria/validation-and-db-constraints.md)
 
 ## 디렉터리
 
