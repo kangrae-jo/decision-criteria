@@ -15,6 +15,7 @@
 
 - [JPA 연관관계와 조회 계획](criteria/jpa-association-fetch-plan.md)
 - [추상 클래스와 인터페이스 선택](criteria/abstract-class-vs-interface.md)
+- [테스트 전략과 계층별 책임](criteria/testing-strategy.md)
 
 ## 디렉터리
 
