@@ -19,6 +19,7 @@
 - [SQL과 Service 로직의 구분](criteria/sql-vs-service-logic.md)
 - [검증 책임과 DB 제약](criteria/validation-and-db-constraints.md)
 - [Java `final` 키워드 사용](criteria/java-final-keyword.md)
+- [SSE를 통한 목록 변경 알림](criteria/sse-list-change-notification.md)
 
 ## 디렉터리
 
