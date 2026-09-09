@@ -14,6 +14,7 @@
 ## 기준 목록
 
 - [JPA 연관관계와 조회 계획](criteria/jpa-association-fetch-plan.md)
+- [도메인 모델과 JPA 엔티티 분리](criteria/domain-model-and-jpa-entity.md)
 - [추상 클래스와 인터페이스 선택](criteria/abstract-class-vs-interface.md)
 - [테스트 전략과 계층별 책임](criteria/testing-strategy.md)
 - [SQL과 Service 로직의 구분](criteria/sql-vs-service-logic.md)
