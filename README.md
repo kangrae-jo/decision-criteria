@@ -13,15 +13,17 @@
 
 ## 기준 목록
 
-- [JPA 연관관계와 조회 계획](criteria/jpa-association-fetch-plan.md)
-- [도메인 모델과 JPA 엔티티 분리](criteria/domain-model-and-jpa-entity.md)
-- [JPA 값 저장 방식](criteria/jpa-value-storage.md)
-- [추상 클래스와 인터페이스 선택](criteria/abstract-class-vs-interface.md)
-- [테스트 전략과 계층별 책임](criteria/testing-strategy.md)
-- [SQL과 Service 로직의 구분](criteria/sql-vs-service-logic.md)
-- [검증 책임과 DB 제약](criteria/validation-and-db-constraints.md)
-- [Java `final` 키워드 사용](criteria/java-final-keyword.md)
-- [SSE를 통한 목록 변경 알림](criteria/sse-list-change-notification.md)
+| 분야 | 판단 기준 |
+| --- | --- |
+| 도메인·영속성 | [JPA 연관관계와 조회 계획](criteria/jpa-association-fetch-plan.md) |
+| 도메인·영속성 | [도메인 모델과 JPA 엔티티 분리](criteria/domain-model-and-jpa-entity.md) |
+| 도메인·영속성 | [JPA 값 저장 방식](criteria/jpa-value-storage.md) |
+| 도메인·영속성 | [SQL과 Service 로직의 구분](criteria/sql-vs-service-logic.md) |
+| 객체 설계·Java | [추상 클래스와 인터페이스 선택](criteria/abstract-class-vs-interface.md) |
+| 객체 설계·Java | [Java `final` 키워드 사용](criteria/java-final-keyword.md) |
+| 테스트·검증 | [테스트 전략과 계층별 책임](criteria/testing-strategy.md) |
+| 테스트·검증 | [검증 책임과 DB 제약](criteria/validation-and-db-constraints.md) |
+| 애플리케이션 통신 | [SSE를 통한 목록 변경 알림](criteria/sse-list-change-notification.md) |
 
 ## 디렉터리
 
