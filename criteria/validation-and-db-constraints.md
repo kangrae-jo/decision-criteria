@@ -1,9 +1,11 @@
 # 검증 책임과 DB 제약
 
-- 상태: `validated`
-- 출처: [방탈출 사용자 예약 PR #451](https://github.com/woowacourse/spring-roomescape-member/pull/451)의 구현과 코드 리뷰
-- 검토 기준: PR 최종 커밋 `1792fad`
+- 상태: `draft`
+- 예시: [방탈출 사용자 예약 PR #451](https://github.com/woowacourse/spring-roomescape-member/pull/451)의 구현과 코드 리뷰
+- 예시 버전: PR 최종 커밋 `1792fad`
 - 주제: 입력 검증, 비즈니스 유효성, DB 무결성, 중복 검사
+
+저장소 사례는 기준의 적용 모습을 설명하며 판단의 근거나 검증 상태로 사용하지 않는다.
 
 ## 결론
 
@@ -58,7 +60,7 @@ Payload는 요청을 애플리케이션이 안전하게 해석할 수 있는지 
 - API 계약에 명시된 문자열·숫자 범위
 - 컬렉션 크기
 
-PR의 `ReservationRequest`는 다음 항목을 Bean Validation으로 확인한다.
+예시 PR의 `ReservationRequest`는 다음 항목을 Bean Validation으로 확인한다.
 
 - 예약자 이름 `@NotBlank`
 - 예약자 이름 최대 10자
@@ -100,7 +102,7 @@ Payload 검증은 HTTP 요청 경로만 보호한다. 내부 배치, 메시지 �
 - 외부 API 또는 다른 도메인의 결과가 필요
 - 어떤 실패인지 구분해 사용자의 다음 행동을 안내해야 함
 
-PR의 `ReservationService`는 다음을 판단한다.
+예시 PR의 `ReservationService`는 다음을 판단한다.
 
 - 예약 시간과 테마가 존재하는가?
 - 요청한 예약 시각이 과거인가?
@@ -113,7 +115,7 @@ PR의 `ReservationService`는 다음을 판단한다.
 
 DB 제약은 애플리케이션의 모든 저장 경로와 동시 요청에서 깨지면 안 되는 상태를 보호한다.
 
-PR의 `reservation` 테이블은 다음 제약을 가진다.
+예시 PR의 `reservation` 테이블은 다음 제약을 가진다.
 
 ```sql
 UNIQUE (date, theme_id, time_id)
@@ -200,7 +202,7 @@ Service 사전 조회를 추가해도 저장 시점의 DB 예외 처리는 제�
 
 ## 7. DB 예외 변환
 
-PR의 `JdbcReservationRepository`는 저장과 수정 중 `DuplicateKeyException`을 잡아 `DuplicatedException`으로 변환한다. HTTP 경계에서는 이를 `409 Conflict`로 반환한다.
+예시 PR의 `JdbcReservationRepository`는 저장과 수정 중 `DuplicateKeyException`을 잡아 `DuplicatedException`으로 변환한다. HTTP 경계에서는 이를 `409 Conflict`로 반환한다.
 
 ```text
 DB UNIQUE 위반
@@ -273,13 +275,13 @@ DB UNIQUE 위반
 3. 최종 예약 개수가 1개인지 확인한다.
 4. 실패 요청이 안정적인 충돌 예외로 변환되는지 확인한다.
 
-PR에서는 복합 유일성 제약, 순차 중복 저장의 `DuplicatedException`, HTTP `409`를 확인했다. 실제 동시 요청 테스트는 확인하지 못했으므로 Race Condition 방어의 실행 검증은 **확인 필요**다.
+예시 PR에서는 복합 유일성 제약, 순차 중복 저장의 `DuplicatedException`, HTTP `409`를 관찰했다. 이는 판단 기준의 검증으로 사용하지 않는다. 실제 동시 요청에서의 Race Condition 방어는 별도 **확인 필요**다.
 
 ## 최종 판단 기준
 
 > Payload는 요청 형식을 검증하고, 도메인과 Service는 비즈니스 의미를 검증하며, DB는 동시 요청에서도 최종 무결성을 보장한다. Service 사전 조회는 구체적인 사용자 안내나 실패 전 비용 절감이 필요할 때만 추가한다. 사전 조회는 DB 제약을 대체하지 않으며, 모든 DB 제약을 Service에 중복 구현하지 않는다.
 
-## 근거
+## 예시 자료
 
 - [방탈출 사용자 예약 PR #451](https://github.com/woowacourse/spring-roomescape-member/pull/451)
 - [Service 검증과 DB 제약의 목적 차이 리뷰](https://github.com/woowacourse/spring-roomescape-member/pull/451#discussion_r3248710202)

@@ -1,7 +1,8 @@
 # Java `final` 키워드 사용
 
 - 상태: `validated`
-- 출처: Java 언어 규칙과 블랙잭 미션의 상속 제한 사례
+- 판단 근거: Java 언어 규칙
+- 예시: 블랙잭 미션의 상속 제한 사례
 - 주제: 재할당, 불변성, 상속, 프레임워크 프록시
 
 ## 결론
@@ -240,13 +241,15 @@ public Member create(final String name) {
 
 ## 근거
 
-- [`Participant`와 구체 타입의 상속 범위 판단](abstract-class-vs-interface.md): `Player`와 `Dealer`를 `final`로 제한한 사례
 - Java 컴파일러가 재할당, 메서드 재정의, 클래스 상속을 차단하는 언어 규칙
+
+## 예시
+
+- [`Participant`와 구체 타입의 상속 범위 판단](abstract-class-vs-interface.md): `Player`와 `Dealer`를 `final`로 제한한 사례
 
 ## 검증 범위
 
 - 확인됨: 변수·필드 재할당, 메서드 재정의, 클래스 상속에 대한 컴파일 단계 제한
-- 확인됨: 블랙잭 구체 타입의 의도하지 않은 추가 상속 제한 사례
 - 확인 필요: 현재 프로젝트의 Spring 프록시 방식과 JPA 바이트코드 강화 설정
 - 비범위: `final` 사용에 따른 JVM 성능 차이 측정
 

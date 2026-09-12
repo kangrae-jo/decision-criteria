@@ -87,6 +87,5 @@ DeliveryEntity
 
 ## 검증 범위
 
-- 확인됨: Delivery와 JPA 저장 모델의 분리 필요성, ID 참조, 변환 책임
 - 확인 필요: 실제 적용 후 변환 코드량과 변경 비용
 - 비범위: Aggregate·VO 세부 설계와 DB 값 저장 방식

@@ -181,6 +181,5 @@ Jakarta Persistence의 enum 기본 저장 방식은 ORDINAL이다. STRING은 enu
 
 ## 검증 범위
 
-- 확인됨: Delivery의 현재 필드 의미, ID 참조, 값 조합, enum·embeddable의 영속성 의미
 - 확인 필요: 실제 스키마 적용 뒤 변환 코드량과 변경 비용
 - 비범위: Aggregate 상태 전이와 VO 자체의 불변식 설계

@@ -1,9 +1,11 @@
 # 테스트 전략과 계층별 책임
 
 - 상태: `draft`
-- 출처: 기존 테스트 회고와 [방탈출 예약 대기 PR #360](https://github.com/woowacourse/spring-roomescape-waiting/pull/360)의 테스트 파일
-- 검토 범위: PR head `356fad7`의 `src/test`만 정적 분석
+- 예시: 기존 테스트 회고와 [방탈출 예약 대기 PR #360](https://github.com/woowacourse/spring-roomescape-waiting/pull/360)의 테스트 파일
+- 예시 범위: PR head `356fad7`의 `src/test`만 정적 분석
 - 주제: 테스트 목적, 계층별 책임, 통합 테스트, E2E, 불확실성 제어
+
+저장소 사례는 기준의 적용 모습을 설명하며 판단의 근거나 검증 상태로 사용하지 않는다.
 
 ## 결론
 
@@ -24,9 +26,9 @@
 | 애플리케이션 기동 | 선택적 Smoke Test | Spring Bean 구성과 Context 기동 | 동작 검증을 `contextLoads()`로 대체하는 테스트 |
 | 시간·랜덤·외부 API | 제어 가능한 의존성 주입 | 같은 입력에 대한 결정적 결과 | 시스템 시각·실제 네트워크·실제 난수에 의존하는 테스트 |
 
-## 1. PR 테스트 파일에서 확인한 구조
+## 1. 예시에서 관찰한 테스트 구조
 
-PR head의 테스트 파일만 확인했다. 운영 코드와 PR 본문은 판단 근거에서 제외했다.
+예시 PR의 테스트 파일만 확인했다. 운영 코드와 PR 본문은 예시 범위에서 제외했다.
 
 | 구분 | 파일 수 | 테스트 수 | 확인한 도구와 경계 |
 | --- | ---: | ---: | --- |
@@ -64,7 +66,7 @@ PR head의 테스트 파일만 확인했다. 운영 코드와 PR 본문은 판�
 - 거부: 기본 생성이나 단순 메서드 호출이 실행된다는 사실만 확인할 때
 - 권장: 가능하면 생성된 상태나 발생한 협력 결과도 함께 확인
 
-PR의 테스트에서는 다음처럼 허용 경계를 검증하고 있다.
+예시 PR의 테스트에서는 다음처럼 허용 경계를 확인하고 있다.
 
 - 이름은 10자까지 허용하고 11자부터 거부한다.
 - 미래 예약은 허용하고 지난 예약은 거부한다.
@@ -85,7 +87,7 @@ PR의 테스트에서는 다음처럼 허용 경계를 검증하고 있다.
 - 시간에 따른 도메인 판단
 - 같은 입력에 대한 결정적 결과
 
-PR의 `MemberTest`, `ReservationTest`, `ReservationWaitingTest`, `SlotTest`는 이 경계를 따른다. 날짜와 현재 시각을 고정값으로 전달하고, 도메인 예외와 결과 상태를 검증한다.
+예시 PR의 `MemberTest`, `ReservationTest`, `ReservationWaitingTest`, `SlotTest`는 이 경계를 따른다. 날짜와 현재 시각을 고정값으로 전달하고, 도메인 예외와 결과 상태를 확인한다.
 
 **거부: 도메인 객체를 테스트하기 위해 Spring Context를 띄우거나 Repository를 Mock하지 않는다.** 도메인이 인프라 없이 테스트되지 않는다면 의존 방향을 다시 검토한다.
 
@@ -105,7 +107,7 @@ Mock 단위 테스트는 Service가 내리는 결정과 협력을 빠르게 검�
 - 여러 도메인 객체와 협력자를 조합하는 유스케이스
 - 도메인 규칙 위반 시 이후 저장을 실행하지 않는지 여부
 
-PR의 Service 테스트는 `MockitoExtension`, `given`, `verify`, `never`를 사용한다. 다음 규칙을 확인한다.
+예시 PR의 Service 테스트는 `MockitoExtension`, `given`, `verify`, `never`를 사용한다. 다음 규칙을 확인한다.
 
 - 존재하지 않는 대상은 `NotFoundException`을 발생시킨다.
 - 본인의 미래 예약만 삭제 Repository에 위임한다.
@@ -134,7 +136,7 @@ Mock은 설정한 대로만 동작하므로 다음 항목을 증명할 수 없�
 3. Service 유스케이스를 실행해 예외를 발생시킨다.
 4. 모든 Repository를 다시 조회해 첫 번째 변경도 롤백됐는지 확인한다.
 
-PR의 테스트 트리에는 Service와 실제 Repository를 함께 사용하는 전용 통합 테스트와 인위적 실패를 통한 롤백 검증이 없다. 따라서 트랜잭션 원자성은 **확인 필요**다.
+예시 PR의 테스트 트리에는 Service와 실제 Repository를 함께 사용하는 전용 통합 테스트와 인위적 실패를 통한 롤백 검증이 없다. 따라서 이 예시에서 트랜잭션 원자성은 **확인 필요**다.
 
 ## 5. Repository: 쿼리와 매핑 통합 테스트
 
@@ -150,7 +152,7 @@ Repository 테스트는 메서드가 호출됐는지가 아니라 실제 DB 결�
 - 집계, 기간 조건, limit
 - 존재하지 않는 데이터의 반환 규칙
 
-PR의 네 Repository 테스트는 `@JdbcTest`와 실제 JDBC Repository를 사용한다. 생성 ID, 중복 예약, 조회 조건, 정렬, 삭제, 대기 순번, 인기 테마 기간 집계를 검증한다. 이 방향은 **채택**한다.
+예시 PR의 네 Repository 테스트는 `@JdbcTest`와 실제 JDBC Repository를 사용한다. 생성 ID, 중복 예약, 조회 조건, 정렬, 삭제, 대기 순번, 인기 테마 기간 집계를 확인한다. Repository의 실제 쿼리와 매핑을 통합 테스트한다는 기준의 적용 예시다.
 
 ### DB 선택 제약
 
@@ -170,7 +172,7 @@ Controller 클래스의 메서드를 직접 호출하고 Service 위임을 검�
 - Controller에 비즈니스 분기가 있다면 테스트를 추가하기보다 해당 규칙을 Service 또는 도메인으로 이동한다.
 - 요청 바인딩, Bean Validation, 예외 매핑은 Java 메서드 직접 호출로 검증할 수 없다.
 
-PR 테스트에는 `@WebMvcTest`나 MockMvc 기반 Controller 테스트가 없다. 대신 실제 포트에서 RestAssured로 HTTP 요청을 보내는 E2E 테스트가 다음을 검증한다.
+예시 PR에는 `@WebMvcTest`나 MockMvc 기반 Controller 테스트가 없다. 대신 실제 포트에서 RestAssured로 HTTP 요청을 보내는 E2E 테스트가 다음을 확인한다.
 
 - HTTP 상태 코드
 - JSON 요청·응답
@@ -212,7 +214,7 @@ E2E는 사용자 관점에서 전체 시스템 연결을 검증한다.
 - Repository 정렬·집계 SQL의 세부 경우
 - Service의 단순 분기와 호출 여부
 
-### 현재 PR에 대한 판단
+### 예시에 대한 적용 결과
 
 API E2E는 4개 파일에 65개로, 도메인과 Service 단위 테스트 38개보다 많다. HTTP 계약뿐 아니라 도메인·Repository의 세부 경계도 반복해서 검증한다.
 
@@ -240,7 +242,7 @@ API E2E는 4개 파일에 65개로, 도메인과 Service 단위 테스트 38개�
 - 도메인에는 계산된 현재 시각을 명시적으로 전달
 - `LocalDate.now()`와 `LocalDateTime.now()` 직접 호출 지양
 
-PR의 `ReservationUseCaseMockTest`와 `ReservationWaitingUseCaseMockTest`는 고정 `Clock`을 사용한다. 도메인 테스트는 현재 시각을 매개변수로 전달한다. 이 구조는 **채택**한다.
+예시 PR의 `ReservationUseCaseMockTest`와 `ReservationWaitingUseCaseMockTest`는 고정 `Clock`을 사용한다. 도메인 테스트는 현재 시각을 매개변수로 전달한다. 제어 가능한 시간 의존성을 사용한다는 기준의 적용 예시다.
 
 ### 랜덤
 
@@ -256,7 +258,7 @@ PR의 `ReservationUseCaseMockTest`와 `ReservationWaitingUseCaseMockTest`는 고
 - 요청·응답 매핑은 WireMock·MockWebServer 같은 경계 통합 테스트 사용
 - 실제 외부 서비스 호출은 기본 테스트 경로에서 제외
 
-PR 테스트에는 랜덤과 외부 API 사례가 없어 해당 기준의 적용 결과는 **확인 필요**다.
+예시 PR에는 랜덤과 외부 API 사례가 없어 해당 기준의 적용 모습은 **확인 필요**다.
 
 ## 9. `contextLoads()` 판단
 
@@ -266,13 +268,13 @@ PR 테스트에는 랜덤과 외부 API 사례가 없어 해당 기준의 적용
 - 이미 모든 E2E가 동일한 `@SpringBootTest` Context를 기동한다면 중복 가치가 낮음
 - 도메인·Service·API 동작이 정상이라는 근거로 사용할 수 없음
 
-현재 PR에서는 65개 E2E가 실제 Context를 기동하므로 별도 `contextLoads()` 테스트는 **거부**한다. CI에서 최소 기동 확인만 별도 실행하려는 목적이 있다면 유지 여부를 다시 판단한다.
+예시 PR에서는 65개 E2E가 실제 Context를 기동하므로 별도 `contextLoads()` 테스트를 두지 않는 적용 결과가 나온다. CI에서 최소 기동 확인만 별도 실행하려는 목적이 있다면 유지 여부를 다시 판단한다.
 
 ## 최종 판단 기준
 
 > 테스트는 실행 여부가 아니라 깨지면 안 되는 규칙을 보호한다. 도메인은 순수 단위 테스트로 불변식과 상태 전이를 검증한다. Service는 Mock 단위 테스트로 유스케이스 분기를 검증하고, 여러 Repository와 트랜잭션이 협력하면 실제 DB 통합 테스트로 원자성과 롤백을 검증한다. Repository는 실제 쿼리와 매핑을 검증한다. Controller는 직접 단위 테스트하지 않고 HTTP 계약을 웹 슬라이스 또는 소수의 E2E로 검증한다. 시간·랜덤·외부 API는 제어 가능한 의존성으로 바꾼다.
 
-## 근거
+## 예시 자료
 
 - [방탈출 예약 대기 PR #360](https://github.com/woowacourse/spring-roomescape-waiting/pull/360)
 - [분석한 테스트 디렉터리](https://github.com/kangrae-jo/spring-roomescape-waiting/tree/356fad7de9f3a1bf40e3819e314c51a6245fd36e/src/test)
@@ -283,6 +285,6 @@ PR 테스트에는 랜덤과 외부 API 사례가 없어 해당 기준의 적용
 
 ## 후속 검증
 
-- [ ] 실제 DB를 사용해 여러 Repository 변경의 롤백 테스트를 추가한 사례를 연결한다.
+- [ ] 실제 DB를 사용해 여러 Repository 변경의 롤백을 검증한다.
 - [ ] E2E 축소 전후 실행 시간과 결함 탐지 범위를 비교한다.
 - [ ] 운영 DB가 H2와 다르면 Repository 핵심 쿼리를 동일 DB 엔진에서 재검증한다.

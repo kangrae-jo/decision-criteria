@@ -1,9 +1,11 @@
 # SQL과 Service 로직의 구분
 
-- 상태: `validated`
-- 출처: [방탈출 사용자 예약 PR #373](https://github.com/woowacourse/spring-roomescape-member/pull/373)의 구현과 코드 리뷰
-- 검토 기준: PR 최종 커밋 `0070ac6`
+- 상태: `draft`
+- 예시: [방탈출 사용자 예약 PR #373](https://github.com/woowacourse/spring-roomescape-member/pull/373)의 구현과 코드 리뷰
+- 예시 버전: PR 최종 커밋 `0070ac6`
 - 주제: DB 연산, 도메인 해석, Service 책임, Repository 소유권
+
+저장소 사례는 기준의 적용 모습을 설명하며 판단의 근거나 검증 상태로 사용하지 않는다.
 
 ## 결론
 
@@ -116,7 +118,7 @@ reservation_time
 
 ### 인기 테마 사례
 
-PR 최종 구현은 다음처럼 분리돼 있다.
+예시 PR의 최종 구현은 다음처럼 분리돼 있다.
 
 ```text
 ThemeService
@@ -200,7 +202,7 @@ SQL이 길다는 이유만으로 Service로 옮기지 않는다. 다음 조건�
 
 Repository는 DB 작업 결과를 사실로 반환하고, Service는 그 사실을 비즈니스 의미로 해석한다.
 
-PR 최종 구현의 삭제 흐름:
+예시 PR의 최종 삭제 흐름:
 
 ```text
 Repository.deleteById(id)
@@ -227,7 +229,7 @@ Service
 - 결과가 없을 때 빈 목록 확인
 - NULL과 중복 데이터 조건 확인
 
-PR에서는 예약 가능 시간 차집합과 인기 테마 집계·정렬을 실제 Repository 테스트로 검증한다.
+예시 PR에는 예약 가능 시간 차집합과 인기 테마 집계·정렬을 확인하는 Repository 테스트가 있다.
 
 ### Service 테스트
 
@@ -245,13 +247,13 @@ PR에서는 예약 가능 시간 차집합과 인기 테마 집계·정렬을 �
 - 인덱스 적용 여부 확인
 - 쿼리 횟수와 애플리케이션 메모리 사용 비교
 
-PR에서는 책임 분리와 결과 정확성을 확인했다. 대량 데이터 실행 계획과 성능 개선 수치는 확인하지 않았으므로 **확인 필요**다.
+예시 PR에서는 책임 분리와 결과 정확성을 관찰했다. 이는 판단 기준의 검증으로 사용하지 않는다. 대량 데이터 실행 계획과 성능 개선 수치는 별도 **확인 필요**다.
 
 ## 최종 판단 기준
 
 > 필터링, 집계, 정렬, 제한, 차집합처럼 데이터를 줄이는 연산은 DB에서 수행한다. 사용자 등급, 도메인 상태, 외부 API 결과, 시간 기준처럼 맥락을 해석하는 판단은 도메인 또는 Service가 담당한다. Service가 맥락을 명시적 쿼리 파라미터로 만들고 Repository가 관계 연산을 수행하는 조합을 우선한다. Repository 위치는 최종 반환 타입뿐 아니라 조회 목적, 사용 자원, 패키지 결합도를 함께 보고 결정한다.
 
-## 근거
+## 예시 자료
 
 - [방탈출 사용자 예약 PR #373](https://github.com/woowacourse/spring-roomescape-member/pull/373)
 - [SQL과 Service 판단 기준 리뷰](https://github.com/woowacourse/spring-roomescape-member/pull/373#discussion_r3208111597)
