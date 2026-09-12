@@ -1,6 +1,6 @@
 # SQL과 Service 로직의 구분
 
-- 상태: `draft`
+- 상태: `adopted`
 - 예시: [방탈출 사용자 예약 PR #373](https://github.com/woowacourse/spring-roomescape-member/pull/373)의 구현과 코드 리뷰
 - 예시 버전: PR 최종 커밋 `0070ac6`
 - 주제: DB 연산, 도메인 해석, Service 책임, Repository 소유권

@@ -1,6 +1,7 @@
 # JPA 연관관계와 조회 계획
 
 - 상태: `draft`
+- draft 사유: ID 참조와 JPA 연관관계의 우선순위, ReservationTime의 Aggregate 경계 미확정
 - 출처: Notion 기존 기록
 - 주제: JPA 연관관계 방향, Fetch 전략, N+1 검증
 

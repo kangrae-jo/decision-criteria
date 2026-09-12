@@ -1,6 +1,6 @@
 # 검증 책임과 DB 제약
 
-- 상태: `draft`
+- 상태: `adopted`
 - 예시: [방탈출 사용자 예약 PR #451](https://github.com/woowacourse/spring-roomescape-member/pull/451)의 구현과 코드 리뷰
 - 예시 버전: PR 최종 커밋 `1792fad`
 - 주제: 입력 검증, 비즈니스 유효성, DB 무결성, 중복 검사

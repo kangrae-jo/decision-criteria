@@ -1,6 +1,6 @@
 # 도메인 모델과 JPA 엔티티 분리
 
-- 상태: draft
+- 상태: adopted
 - 예시 기준: Delivery → DeliveryEntity
 - 주제: 순수 도메인 모델, JPA 엔티티, 변환 책임
 - 선택: 도메인 모델과 JPA 엔티티 분리

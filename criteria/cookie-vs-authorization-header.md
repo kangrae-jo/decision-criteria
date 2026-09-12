@@ -1,6 +1,6 @@
 # Cookie와 Authorization 헤더의 인증 정보 전달 선택
 
-- 상태: draft
+- 상태: adopted
 - 주제: HTTP 요청의 인증 정보 전달 위치
 - 판단 축: 클라이언트 종류, 자동 전송 여부, JavaScript 접근, CSRF, CORS
 

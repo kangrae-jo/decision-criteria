@@ -1,6 +1,6 @@
 # SSE를 통한 목록 변경 알림
 
-- 상태: `draft`
+- 상태: `adopted`
 - 예시: 배송 요청 목록 자동 갱신 조사·구현 기록
 - 예시 구현: [2026-setty PR #247](https://github.com/woowacourse-teams/2026-setty/pull/247)
 - 예시 요구사항: [2026-setty 이슈 #244](https://github.com/woowacourse-teams/2026-setty/issues/244)

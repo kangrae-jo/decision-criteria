@@ -1,6 +1,6 @@
 # JPA 값 저장 방식
 
-- 상태: draft
+- 상태: adopted
 - 예시 기준: DeliveryEntity의 값 평탄화
 - 주제: 원시 컬럼, 변환 비용, Embeddable, Enumerated
 - 선택: DeliveryEntity는 단순 값만 저장

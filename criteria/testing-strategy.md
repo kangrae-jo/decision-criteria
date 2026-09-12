@@ -1,6 +1,6 @@
 # 테스트 전략과 계층별 책임
 
-- 상태: `draft`
+- 상태: `adopted`
 - 예시: 기존 테스트 회고와 [방탈출 예약 대기 PR #360](https://github.com/woowacourse/spring-roomescape-waiting/pull/360)의 테스트 파일
 - 예시 범위: PR head `356fad7`의 `src/test`만 정적 분석
 - 주제: 테스트 목적, 계층별 책임, 통합 테스트, E2E, 불확실성 제어
