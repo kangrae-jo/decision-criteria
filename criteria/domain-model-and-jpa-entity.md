@@ -13,6 +13,8 @@
 
 **채택: 다른 Aggregate는 두 계층 모두 ID로 참조한다.** 도메인은 의미가 구분되는 ID VO를, JPA 엔티티는 원시 ID 컬럼을 사용한다.
 
+Aggregate 참조 방식의 상세 기준은 [JPA 엔티티의 Aggregate 참조 방식](jpa-aggregate-reference.md)에서 다룬다.
+
 ## 빠른 기준
 
 | 질문 | 판단 |

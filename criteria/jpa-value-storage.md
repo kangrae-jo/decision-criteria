@@ -28,6 +28,8 @@
 
 이 기준은 JPA 엔티티가 도메인 값을 어떤 DB 컬럼 표현으로 저장할지 결정한다. Aggregate의 상태 전이, VO의 불변식, 조회 계획은 비범위다.
 
+다른 Aggregate의 ID 참조 기준은 [JPA 엔티티의 Aggregate 참조 방식](jpa-aggregate-reference.md)에서 다룬다.
+
 ~~~text
 Domain Delivery
 ├── orderId: OrderId

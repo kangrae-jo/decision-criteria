@@ -16,6 +16,7 @@
 
 | 분야 | 판단 기준 |
 | --- | --- |
+| 도메인·영속성 | [JPA 엔티티의 Aggregate 참조 방식](criteria/jpa-aggregate-reference.md) |
 | 도메인·영속성 | [JPA 연관관계와 조회 계획](criteria/jpa-association-fetch-plan.md) |
 | 도메인·영속성 | [도메인 모델과 JPA 엔티티 분리](criteria/domain-model-and-jpa-entity.md) |
 | 도메인·영속성 | [JPA 값 저장 방식](criteria/jpa-value-storage.md) |
