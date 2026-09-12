@@ -1,9 +1,8 @@
 # Cookie와 Authorization 헤더의 인증 정보 전달 선택
 
 - 상태: draft
-- 예시 기준: Setty server의 AuthInterceptor, WebConfig, ListingApiTest 정적 확인
 - 주제: HTTP 요청의 인증 정보 전달 위치
-- 선택: 브라우저 세션 ID는 Cookie, 모바일·외부 API access token은 Authorization 헤더
+- 판단 축: 클라이언트 종류, 자동 전송 여부, JavaScript 접근, CSRF, CORS
 
 ## 결론
 
@@ -52,6 +51,15 @@ Cookie와 헤더는 보안 우열이 아니라 위협 모델과 클라이언트 
 
 Cookie는 브라우저 세션의 식별자를 전달할 때 선택한다. 서버는 Cookie 값 자체가 아니라 해당 값으로 찾은 서버 세션을 인증 상태의 원본으로 사용한다.
 
+다음 조건이면 선택한다.
+
+- 브라우저가 주 클라이언트다.
+- 인증 정보를 JavaScript에서 읽지 못하게 해야 한다.
+- 동일 출처 요청에서 브라우저의 자동 전송을 활용한다.
+- CSRF 방어와 Cookie 속성을 운영할 수 있다.
+
+비브라우저 클라이언트가 주 사용처이거나 요청마다 인증 정보를 명시적으로 제어해야 한다면 Cookie를 기본 선택으로 두지 않는다.
+
 ~~~text
 Set-Cookie: sessionId=...; HttpOnly; Secure; SameSite=Lax
 ~~~
@@ -75,9 +83,16 @@ JWT를 Cookie에 넣는 경우에도 Cookie 자동 전송과 CSRF 위험은 그�
 Authorization: Bearer {access-token}
 ~~~
 
-Setty의 AuthInterceptor는 Authorization 헤더가 Bearer 접두어를 가지는지 확인하고, UUID token을 DB에서 조회한다. Cookie를 읽지 않는다. WebConfig는 로그인·회원가입을 제외한 /api 경로에 이 Interceptor를 적용한다.
+다음 조건이면 선택한다.
 
-헤더 방식에서는 클라이언트가 token을 어디에 보관할지 별도로 결정해야 한다. 브라우저의 JavaScript 접근 가능한 영속 저장소를 편의만으로 기본 선택하지 않는다. 사용하면 XSS 대응, token 수명, 재발급, 로그 제외 정책을 함께 검증한다.
+- 모바일 앱, 외부 API, 서버 간 호출이 주 사용처다.
+- 클라이언트가 요청마다 인증 정보를 명시적으로 첨부할 수 있다.
+- Cookie의 자동 전송과 무관한 API 인증 계약이 필요하다.
+- token 저장 위치, 수명, 재발급, 로그 마스킹을 운영할 수 있다.
+
+브라우저에서 token을 영속 저장하기 위해 JavaScript 접근 가능한 저장소를 반드시 사용해야 하고 XSS 탈취 대응이 부족하다면 기본 선택으로 두지 않는다.
+
+헤더 방식을 선택하면 클라이언트의 token 저장 위치, token 수명, 재발급, 로그 제외 정책을 함께 검증한다.
 
 Bearer token은 가진 사람이 사용할 수 있는 자격 증명이다. HTTPS를 사용하고 프록시·애플리케이션 로그에서 Authorization 값을 마스킹한다.
 
@@ -99,7 +114,6 @@ Bearer token은 가진 사람이 사용할 수 있는 자격 증명이다. HTTPS
 - access token이 URL, 예외 메시지, 애플리케이션·프록시 로그에 남지 않는지 확인한다.
 - 교차 출처를 지원하면 Cookie credentials, 허용 Origin, 허용 헤더를 실제 브라우저 요청으로 확인한다.
 - 인증 성공 뒤 자원 인가 실패가 403 또는 정한 은닉 응답인지 확인한다.
-- Setty의 ListingApiTest처럼 Bearer token이 없거나 DB에 없는 token이면 401과 오류 계약이 반환되는지 확인한다.
 
 ## 최종 판단 기준
 
@@ -107,6 +121,5 @@ Bearer token은 가진 사람이 사용할 수 있는 자격 증명이다. HTTPS
 
 ## 검증 범위
 
-- 확인됨: Setty의 Authorization Bearer 형식 검사, DB token 조회, Cookie 미사용, 누락·잘못된 token의 401 테스트
-- 확인 필요: 실제 응답 Cookie 속성, CSRF 방어, CORS 설정과 로그 마스킹
+- 확인 필요: 적용 서비스의 Cookie 속성, CSRF 방어, token 저장 위치, CORS 설정과 로그 마스킹
 - 비범위: 세션·토큰의 상태 관리 방식, 자원별 인가 규칙
