@@ -63,7 +63,7 @@ ReservationEntity에는 `ReservationTimeEntity` 필드와 연관관계 애너테
 - Aggregate 행위: 각각의 Repository로 조회한 뒤 Application Service에서 조합
 - 대량 목록: SQL JOIN으로 필요한 필드만 조회
 
-조회 편의를 이유로 Entity 연관관계를 추가하지 않는다. 구체적인 조회 방식은 [JPA 연관관계와 조회 계획](jpa-association-fetch-plan.md)에서 다룬다.
+조회 편의를 이유로 Entity 연관관계를 추가하지 않는다. 구체적인 조회 방식은 [JPA 조회 계획과 N+1](jpa-fetch-plan.md)에서 다룬다.
 
 ## 4. 시간 변경과 삭제
 
