@@ -27,6 +27,7 @@
 | 테스트·검증 | [검증 책임과 DB 제약](criteria/validation-and-db-constraints.md) |
 | 인증·인가 | [세션과 토큰 기반 인증 상태 선택](criteria/session-vs-token.md) |
 | 인증·인가 | [Cookie와 Authorization 헤더의 인증 정보 전달 선택](criteria/cookie-vs-authorization-header.md) |
+| 애플리케이션 통신 | [비동기 메시지 전달 방식 선택](criteria/async-message-delivery.md) |
 | 애플리케이션 통신 | [SSE를 통한 목록 변경 알림](criteria/sse-list-change-notification.md) |
 
 ## 디렉터리
