@@ -21,6 +21,7 @@
 | 도메인·영속성 | [도메인 모델과 JPA 엔티티 분리](criteria/domain-model-and-jpa-entity.md) |
 | 도메인·영속성 | [JPA 값 저장 방식](criteria/jpa-value-storage.md) |
 | 도메인·영속성 | [SQL과 Service 로직의 구분](criteria/sql-vs-service-logic.md) |
+| 데이터·일관성 | [DB 변경과 이벤트 발행 일관성](criteria/db-event-publication-consistency.md) |
 | 객체 설계·Java | [추상 클래스와 인터페이스 선택](criteria/abstract-class-vs-interface.md) |
 | 객체 설계·Java | [Java `final` 키워드 사용](criteria/java-final-keyword.md) |
 | 테스트·검증 | [테스트 전략과 계층별 책임](criteria/testing-strategy.md) |
