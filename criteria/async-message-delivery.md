@@ -59,6 +59,15 @@
 
 작업 이력을 장기간 보존하거나 신규 소비자가 과거 작업을 다시 읽어야 한다면 이벤트 스트림을 검토한다.
 
+### 구현 예시
+
+[Technical Writing의 DB Polling 재구성](https://github.com/kangrae-jo/woowa-archive/tree/main/technical-writing)은 이미지 생성 요청을 MySQL에 Job으로 저장하고, 별도 Worker가 Polling하여 처리하는 DB Job Queue를 구현한다.
+
+- 하나의 작업은 조건부 선점에 성공한 Worker가 처리한다.
+- 실패하거나 처리 기한이 만료된 작업은 정해진 횟수까지 재시도한다.
+- 중복 실행은 허용하지만 오래된 실행의 결과 반영은 거부한다.
+- Kafka·RabbitMQ 같은 외부 메시지 브로커는 사용하지 않는다.
+
 ## 4. 이벤트 스트림
 
 이벤트 스트림은 소비 여부와 별개로 기록을 보존한다.
