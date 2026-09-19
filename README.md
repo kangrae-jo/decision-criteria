@@ -44,9 +44,16 @@
 | 애플리케이션 통신 | [메시지 브로커 제품 선택](criteria/message-broker-selection.md) |
 | 애플리케이션 통신 | [SSE를 통한 목록 변경 알림](criteria/sse-list-change-notification.md) |
 
+## 참고 문서
+
+| 문서 | 설명 |
+| --- | --- |
+| [아키텍처 의사결정 용어](references/architecture-decision-terms.md) | Driver, Quality Attribute, Tactic, Style, Pattern, Trade-off, Decision, ADR |
+
 ## 디렉터리
 
 - `criteria/`: 확정 또는 검토 중인 판단 기준
+- `references/`: 여러 판단 기준에서 공통으로 사용하는 개념과 용어
 - `.github/pull_request_template.md`: 별도 검토가 필요한 변경을 위한 선택적 PR 템플릿
 
 ## 문서 상태
