@@ -37,6 +37,7 @@
 | 객체 설계·Java | [Java `final` 키워드 사용](criteria/java-final-keyword.md) |
 | 테스트·검증 | [테스트 전략과 계층별 책임](criteria/testing-strategy.md) |
 | 테스트·검증 | [검증 책임과 DB 제약](criteria/validation-and-db-constraints.md) |
+| 테스트·검증 | [부하 테스트 생성기 선택](criteria/load-test-generator-selection.md) |
 | 인증·인가 | [세션과 토큰 기반 인증 상태 선택](criteria/session-vs-token.md) |
 | 인증·인가 | [Cookie와 Authorization 헤더의 인증 정보 전달 선택](criteria/cookie-vs-authorization-header.md) |
 | 아키텍처 | [이벤트 기반 아키텍처 도입 판단](criteria/event-driven-architecture-adoption.md) |
