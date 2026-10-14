@@ -52,10 +52,17 @@
 | --- | --- |
 | [아키텍처 의사결정 용어](references/architecture-decision-terms.md) | Driver, Quality Attribute, Tactic, Style, Pattern, Trade-off, Decision, ADR |
 
+## 작성 도구
+
+| 스킬 | 용도 |
+| --- | --- |
+| [판단 기준 작성](skills/decision-criteria-writing/SKILL.md) | 조건별 선택, 트레이드오프와 검증 방법을 갖춘 판단 기준 작성·수정 |
+
 ## 디렉터리
 
 - `criteria/`: 확정 또는 검토 중인 판단 기준
 - `references/`: 여러 판단 기준에서 공통으로 사용하는 개념과 용어
+- `skills/`: 판단 기준 문서를 일관되게 작성하기 위한 재사용 가능한 작업 지침
 - `.github/pull_request_template.md`: 별도 검토가 필요한 변경을 위한 선택적 PR 템플릿
 
 ## 문서 상태
