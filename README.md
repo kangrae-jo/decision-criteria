@@ -35,6 +35,7 @@
 | 데이터·일관성 | [DB 변경과 이벤트 발행 일관성](criteria/db-event-publication-consistency.md) |
 | 객체 설계·Java | [추상 클래스와 인터페이스 선택](criteria/abstract-class-vs-interface.md) |
 | 객체 설계·Java | [Java `final` 키워드 사용](criteria/java-final-keyword.md) |
+| 성능·운영 | [트래픽 폭주 시 요청 수용·대기·거절](criteria/traffic-overload-control.md) |
 | 테스트·검증 | [테스트 전략과 계층별 책임](criteria/testing-strategy.md) |
 | 테스트·검증 | [검증 책임과 DB 제약](criteria/validation-and-db-constraints.md) |
 | 테스트·검증 | [부하 테스트 생성기 선택](criteria/load-test-generator-selection.md) |
